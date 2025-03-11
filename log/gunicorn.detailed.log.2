@@ -1,0 +1,94 @@
+[2025-03-10 21:10:37,515] ERROR log_exception() L1449 Exception on /tarefa/1 [GET] - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py L1449
+Traceback (most recent call last):
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\scaffold.py", line 109, in wrapper
+    resp = _do_wrapper(
+           ^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\do_wrapper.py", line 135, in _do_wrapper
+    response = func(**request_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: get_tarefa_by_name() missing 1 required positional argument: 'nome'
+[2025-03-10 21:10:37,518] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:10:37] "[35m[1mGET /tarefa/1 HTTP/1.1[0m" 500 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:10:54,040] ERROR log_exception() L1449 Exception on /tarefa/{nome} [GET] - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py L1449
+Traceback (most recent call last):
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\scaffold.py", line 109, in wrapper
+    resp = _do_wrapper(
+           ^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\do_wrapper.py", line 135, in _do_wrapper
+    response = func(**request_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: get_tarefa_by_name() missing 1 required positional argument: 'nome'
+[2025-03-10 21:10:54,042] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:10:54] "[35m[1mGET /tarefa/%7Bnome%7D HTTP/1.1[0m" 500 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:11:32,944] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:11:32] "GET /openapi/swagger HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:11:32,953] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:11:32] "[36mGET /openapi/static/css/swagger-ui.css HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:11:32,953] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:11:32] "[36mGET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:11:32,954] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:11:32] "[36mGET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:11:33,030] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:11:33] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:11:33,039] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:11:33] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:11:41,926] ERROR get_tarefas_por_status() L175  Erro ao buscar tarefas por status: 2 validation errors for TarefasPorStatusResponse
+To_Do
+  field required (type=value_error.missing)
+In_Progress
+  field required (type=value_error.missing) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L175 
+[2025-03-10 21:11:41,927] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:11:41] "[35m[1mGET /tarefas/status HTTP/1.1[0m" 500 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:12:13,829] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:12:13] "POST /tarefa HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:12:23,401] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:12:23] "POST /tarefa HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:12:41,033] ERROR log_exception() L1449 Exception on /tarefas [GET] - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py L1449
+Traceback (most recent call last):
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\scaffold.py", line 109, in wrapper
+    resp = _do_wrapper(
+           ^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\do_wrapper.py", line 135, in _do_wrapper
+    response = func(**request_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py", line 47, in get_tarefas
+    logger.debug(f"%t tarefas encontradas" % len(tarefas))
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+ValueError: unsupported format character 't' (0x74) at index 1
+[2025-03-10 21:12:41,035] INFO _log() L225  192.168.0.109 - - [10/Mar/2025 21:12:41] "[35m[1mGET /tarefas HTTP/1.1[0m" 500 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-10 21:14:49,412] WARNING _log() L225   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment. - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
