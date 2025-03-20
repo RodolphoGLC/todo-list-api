@@ -18,6 +18,10 @@ python -m pip install --user virtualenv
 ```
 
 ```
+.\venv\Scripts\activate
+```
+
+```
 (env)$ pip install -r requirements.txt
 ```
 

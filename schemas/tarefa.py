@@ -4,9 +4,9 @@ from model.tarefa import Tarefa
 
 
 class TarefaSchema(BaseModel):
-    nome: str = "Tarefa ABC"
-    descricao: str = "Tarefa ABC"
-    status: str = "To Do"
+    descricao: str
+    nome: str
+    status: str
 
 
 class TaredaAdicaoSchema(BaseModel):
@@ -22,6 +22,13 @@ class TarefaBuscaSchema(BaseModel):
         Define que a busca deverá ser feita a partir do nome da tarefa
     """
     nome: str = "Tarefa ABC"
+
+
+class TarefaDeleteSchema(BaseModel):
+    """ 
+        Define que a busca deverá ser feita a partir do nome da tarefa
+    """
+    id: int
 
 
 class ListagemTarefasSchema(BaseModel):
@@ -49,18 +56,21 @@ class TarefaDelSchema(BaseModel):
     mesage: str
     nome: str
 
+
 class TarefaUpdateSchema(BaseModel):
     """ 
         Define como deve ser a estrutura do dado para alterar o status
     """
+    id: int = 1
     status: str = "In Progress"
+
 
 class TarefasPorStatusResponse(BaseModel):
     """ Contagem de tarefas por status """
-    To_Do: int
-    In_Progress: int
+    Ready: int
+    Doing: int
     Done: int
-    Archived: int
+
 
 def apresenta_tarefa(tarefa: Tarefa):
     """ 
@@ -70,7 +80,7 @@ def apresenta_tarefa(tarefa: Tarefa):
     return {
         "id": tarefa.id,
         "nome": tarefa.nome,
-        "descrição": tarefa.descricao,
+        "descricao": tarefa.descricao,
         "status": tarefa.status,
     }
 
@@ -85,7 +95,7 @@ def apresenta_tarefas(tarefas: List[Tarefa]):
         result.append({
             "id": tarefa.id,
             "nome": tarefa.nome,
-            "descrição": tarefa.descricao,
+            "descricao": tarefa.descricao,
             "status": tarefa.status,
         })
 
