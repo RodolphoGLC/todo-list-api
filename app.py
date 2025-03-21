@@ -50,12 +50,13 @@ def get_tarefas():
         logger.debug(f"{len(tarefas)} tasks found")
         session.close()
         return {"tarefas": apresenta_tarefas(tarefas)}, 200
-    
+
+
 @app.get('/tarefa/id', tags=[tarefa_tag])
-def get_tarefas():
+def get_tarefas_id():
     """
     Get a list of tasks
-    
+
     Returns a list of all registered tasks
     """
     logger.debug("Fetching tasks")
@@ -73,7 +74,8 @@ def get_tarefas():
         return {"tarefas": apresenta_tarefas(tarefas)}, 200
 
 
-# Post Tarefa
+from sqlalchemy.orm.exc import NoResultFound
+
 @app.post('/tarefa', tags=[tarefa_tag],
           responses={"200": TarefaViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def add_tarefa(form: TarefaSchema):
@@ -83,40 +85,38 @@ def add_tarefa(form: TarefaSchema):
     Returns a representation of the tasks and associated comments.
     """
 
-    tarefa = Tarefa(
-        nome=form.nome,
-        descricao=form.descricao,
-        status=form.status,
-        data_criacao=datetime.now()
-    )
-
-    logger.debug(f"Adding task with name: '{tarefa.nome}'")
-
+    # Verifica se já existe uma tarefa com o mesmo nome
+    existing_task = None
     try:
         session = Session()
+        existing_task = session.query(Tarefa).filter(Tarefa.nome == form.nome).one_or_none()
+
+        if existing_task:
+            error_msg = f"Task with the name '{form.nome}' already exists in the database."
+            logger.warning(error_msg)
+            return {"message": error_msg}, 409
+        
+        # Se não houver duplicidade, cria a nova tarefa
+        tarefa = Tarefa(
+            nome=form.nome,
+            descricao=form.descricao,
+            status=form.status,
+            data_criacao=datetime.now()
+        )
+
+        logger.debug(f"Adding task with name: '{tarefa.nome}'")
 
         session.add(tarefa)
-
         session.commit()
 
         logger.debug(f"Added task with name: '{tarefa.nome}'")
-
         return apresenta_tarefa(tarefa), 200
-
-    except IntegrityError as e:
-        error_msg = "Task with the same name already saved in the database :/"
-        logger.warning(
-            f"Error adding task '{tarefa.nome}', {error_msg}")
-        return {"message": error_msg}, 409
 
     except Exception as e:
         error_msg = "Could not save new item :/"
-        logger.warning(
-            f"Error adding task '{tarefa.nome}', {error_msg}")
+        logger.warning(f"Error adding task: {error_msg}, Exception: {str(e)}")
         return {"message": error_msg}, 400
 
-    finally:
-        session.close()
 
 
 @app.delete('/tarefa', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
@@ -146,48 +146,6 @@ def delete_tarefa(query: TarefaDeleteSchema):
     return {"message": f"Task '{tarefa.nome}' deleted successfully"}, 200
 
 
-# @app.put('/tarefa', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
-# def update_tarefa_status(tarefa_id: int, form: TarefaUpdateSchema):
-#     """Updates the status of a task by ID"""
-#     session = Session()
-#     try:
-#         tarefa = session.query(Tarefa).filter_by(id=tarefa_id).first()
-
-#         if not tarefa:
-#             error_msg = "Task not found :/"
-#             logger.warning(f"Error updating status of task {tarefa_id}, {error_msg}")
-#             return {"message": error_msg}, 404
-
-#         tarefa.status = form.status
-#         session.commit()  # Removed the argument `tarefa`
-#         logger.debug(f"Status of task {tarefa_id} updated to {form.status}")
-
-#         return apresenta_tarefa(tarefa), 200
-#     except Exception as e:
-#         session.rollback()  # Ensures the transaction is reverted in case of an error
-#         logger.error(f"Error updating task {tarefa_id}: {str(e)}")
-#         return {"message": "Internal server error"}, 500
-#     finally:
-#         session.close()  # Properly closes the session
-
-
-# Get Task by Name (Optional)
-# @app.get('/tarefa/<string:nome>', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
-# def get_tarefa_by_name(nome: str):
-#     """Searches for a task by name"""
-#     session = Session()
-#     tarefa = session.query(Tarefa).filter(
-#         Tarefa.nome.ilike(f"%{nome}%")).first()
-
-#     if not tarefa:
-#         error_msg = "Task not found :/"
-#         logger.warning(f"Error searching for task with name '{nome}', {error_msg}")
-#         return {"message": error_msg}, 404
-
-#     logger.debug(f"Task found: {tarefa.nome}")
-#     return apresenta_tarefa(tarefa), 200
-
-
 # Get Total Tasks by Status
 @app.get('/tarefas/status', tags=[tarefa_tag], responses={"200": TarefasPorStatusResponse, "500": ErrorSchema})
 def get_tarefas_por_status():
@@ -213,3 +171,44 @@ def get_tarefas_por_status():
 
     finally:
         session.close()  # Close the session to avoid open connections
+
+
+@app.put('/tarefa', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
+def update_tarefa_status(form: TarefaUpdateSchema):
+    """Atualiza o status de uma tarefa pelo ID"""
+
+    # Inicia a sessão do banco de dados
+    session = Session()
+
+    id = form.id
+
+    try:
+        # Busca a tarefa pelo ID
+        tarefa = session.query(Tarefa).filter(Tarefa.id == id).first()
+
+        # Verifica se a tarefa foi encontrada
+        if not tarefa:
+            error_msg = "Tarefa não encontrada :/"
+            logger.warning(
+                f"Erro ao atualizar status da tarefa {id}, {error_msg}")
+            return {"message": error_msg}, 404
+
+        # Atualiza o status da tarefa
+        tarefa.status = form.status
+        session.commit()  # Commit da alteração no banco de dados
+
+        logger.debug(
+            f"Status da tarefa {id} atualizado para {form.status}")
+
+        # Retorna a tarefa atualizada com a nova informação
+        return apresenta_tarefa(tarefa), 200
+
+    except Exception as e:
+        # Em caso de erro, faz rollback e loga a exceção
+        session.rollback()
+        logger.error(f"Erro ao atualizar tarefa {id}: {str(e)}")
+        return {"message": "Erro interno no servidor"}, 500
+
+    finally:
+        # Fecha a sessão para evitar conexões abertas
+        session.close()

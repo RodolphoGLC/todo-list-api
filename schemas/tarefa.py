@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from typing import Optional, List
 from model.tarefa import Tarefa
 
-
 class TarefaSchema(BaseModel):
     descricao: str
     nome: str
@@ -61,8 +60,8 @@ class TarefaUpdateSchema(BaseModel):
     """ 
         Define como deve ser a estrutura do dado para alterar o status
     """
-    id: int = 1
-    status: str = "In Progress"
+    id: int
+    status: str
 
 
 class TarefasPorStatusResponse(BaseModel):
