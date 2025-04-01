@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 from model.tarefa import Tarefa
 
+
 class TarefaSchema(BaseModel):
     descricao: str
     nome: str
@@ -12,15 +13,15 @@ class TaredaAdicaoSchema(BaseModel):
     """ 
         Define como uma nova tarefa a ser inserida deve ser representada
     """
-    nome: str = "Tarefa ABC"
-    descricao: str = "Descrição da tarefa ABC"
+    nome: str
+    descricao: str
 
 
 class TarefaBuscaSchema(BaseModel):
     """ 
         Define que a busca deverá ser feita a partir do nome da tarefa
     """
-    nome: str = "Tarefa ABC"
+    nome: str
 
 
 class TarefaDeleteSchema(BaseModel):
@@ -41,16 +42,15 @@ class TarefaViewSchema(BaseModel):
     """ 
         Define como um Tarefa será retornada.
     """
-    id: int = 1
-    nome: str = "Tarefa ABC"
-    descricao: str = "Descrição da Tarefa ABC"
-    status: str = "To Do"
+    id: int
+    nome: str
+    descricao: str
+    status: str
 
 
 class TarefaDelSchema(BaseModel):
     """ 
-        Define como deve ser a estrutura do dado retornado após uma requisição
-        de remoção.
+        Define como deve ser a estrutura do dado retornado após uma requisição de remoção.
     """
     mesage: str
     nome: str
@@ -73,8 +73,7 @@ class TarefasPorStatusResponse(BaseModel):
 
 def apresenta_tarefa(tarefa: Tarefa):
     """ 
-        Retorna uma representação do Tarefa seguindo o schema definido em
-        TarefaViewSchema.
+        Retorna uma representação do Tarefa seguindo o schema definido em TarefaViewSchema.
     """
     return {
         "id": tarefa.id,
@@ -86,8 +85,7 @@ def apresenta_tarefa(tarefa: Tarefa):
 
 def apresenta_tarefas(tarefas: List[Tarefa]):
     """ 
-        Retorna uma representação do Tarefa seguindo o schema definido
-        em TarefaViewSchema.
+        Retorna uma representação do Tarefa seguindo o schema definido em TarefaViewSchema.
     """
     result = []
     for tarefa in tarefas:
@@ -96,6 +94,7 @@ def apresenta_tarefas(tarefas: List[Tarefa]):
             "nome": tarefa.nome,
             "descricao": tarefa.descricao,
             "status": tarefa.status,
+            "data_criacao": tarefa.data_criacao
         })
 
-    return {"Tarefas": result}
+    return {"tarefas": result}

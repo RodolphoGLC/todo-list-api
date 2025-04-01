@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
 from datetime import datetime
 from typing import Union
 
@@ -12,6 +12,7 @@ class Tarefa(Base):
     descricao = Column(String(140))
     status = Column(String(100))
     data_criacao = Column(DateTime, default=datetime.now())
+    # usuario_id = Column(Integer, ForeignKey("usuarios.id"))
     # data_inicio (quando o status mudar de Todo para InProgress)
     # data_termino (quando o status mudar de InProgress para Done)
 

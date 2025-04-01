@@ -1,50 +1,51 @@
-[2025-03-20 18:33:07,004] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:07] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:09,672] ERROR get_tarefas_por_status() L186  Erro ao buscar tarefas por status: 2 validation errors for TarefasPorStatusResponse
-Ready
-  field required (type=value_error.missing)
-Doing
-  field required (type=value_error.missing) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L186 
-[2025-03-20 18:33:09,672] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:09] "[35m[1mGET /tarefas/status HTTP/1.1[0m" 500 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:37,452] WARNING _log() L225   * Running on all addresses.
-   WARNING: This is a development server. Do not use it in a production deployment. - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:37,454] INFO _log() L225   * Running on http://192.168.0.109:5000/ (Press CTRL+C to quit) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:38,687] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:38] "GET /openapi/swagger HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:38,745] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:38] "[36mGET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:38,746] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:38] "[36mGET /openapi/static/css/swagger-ui.css HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:38,746] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:38] "[36mGET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:38,777] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:38] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:38,794] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:38] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:41,064] ERROR log_exception() L1449 Exception on /tarefas/status [GET] - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py L1449
-Traceback (most recent call last):
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1520, in full_dispatch_request
-    return self.finalize_request(rv)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1539, in finalize_request
-    response = self.make_response(rv)
-               ^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1730, in make_response
-    raise TypeError(
-TypeError: The view function did not return a valid response. The return type must be a string, dict, tuple, Response instance, or WSGI callable, but it was a TarefasPorStatusResponse.
-[2025-03-20 18:33:41,066] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:41] "[35m[1mGET /tarefas/status HTTP/1.1[0m" 500 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:33:47,248] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:33:47] "GET /tarefas HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:36,105] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:36] "GET /tarefas HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:40,104] WARNING _log() L225   * Running on all addresses.
-   WARNING: This is a development server. Do not use it in a production deployment. - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:40,105] INFO _log() L225   * Running on http://192.168.0.109:5000/ (Press CTRL+C to quit) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:41,659] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:41] "GET /tarefas HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:46,958] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:46] "POST /tarefa HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:46,963] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:46] "GET /tarefas HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:49,435] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:49] "OPTIONS /tarefa?id=1 HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:49,438] WARNING delete_tarefa() L104  Erro ao deletar tarefa 1 - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L104 
-[2025-03-20 18:35:49,441] INFO delete_tarefa() L115  Tarefa encontrada: TEste - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L115 
-[2025-03-20 18:35:49,447] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:49] "DELETE /tarefa?id=1 HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:49,452] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:49] "GET /tarefas HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:55,997] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:55] "GET /openapi/swagger HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:56,083] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:56] "[36mGET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:56,083] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:56] "[36mGET /openapi/static/css/swagger-ui.css HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:56,083] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:56] "[36mGET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:56,118] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:56] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-20 18:35:56,128] INFO _log() L225  192.168.0.109 - - [20/Mar/2025 18:35:56] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:07:44,877] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:07:48,243] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:07:50,523] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:07:58,892] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:00,163] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:01,426] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:07,745] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:13,061] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:16,354] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:17,607] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:32,064] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:34,344] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:38,645] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:43,972] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:46,243] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:49,516] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:51,795] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:08:57,131] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:01,428] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:03,727] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:12,101] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:33,670] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:42,155] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:49,628] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:56,073] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:58,461] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:09:59,722] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:01,998] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:07,308] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:09,650] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:11,922] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:13,237] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:15,592] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:18,974] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:20,285] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:22,608] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:24,937] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:26,192] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:28,529] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:31,909] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:44,468] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:50,907] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:55,306] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:10:57,648] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:11:02,057] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:11:06,359] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:11:10,743] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:11:12,104] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:11:14,545] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:11:16,882] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-03-26 21:11:20,262] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 

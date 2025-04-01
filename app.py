@@ -1,3 +1,4 @@
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import func
 from flask_openapi3 import OpenAPI, Info, Tag
@@ -7,7 +8,7 @@ from datetime import datetime
 
 from sqlalchemy.exc import IntegrityError
 
-from model import Session, Tarefa
+from model import Session, Tarefa, Usuario
 from logger import logger
 from schemas import *
 from flask_cors import CORS
@@ -20,6 +21,8 @@ home_tag = Tag(name="Documentation",
                description="Documentation selection: Swagger, Redoc, or RapiDoc")
 tarefa_tag = Tag(
     name="Tarefa", description="Adding, viewing, and removing tasks from the database")
+usuario_tag = Tag(
+    name="Usuário", description="Endpoints de usuário e autenticação")
 
 
 @app.get('/', tags=[home_tag])
@@ -37,7 +40,7 @@ def get_tarefas():
 
     Returns a list of all registered tasks
     """
-    logger.debug("Fetching tasks")
+    # logger.debug("Fetching tasks")
 
     session = Session()
     tarefas = session.query(Tarefa).all()
@@ -45,36 +48,12 @@ def get_tarefas():
     if not tarefas:
         logger.debug("No tasks found.")
         session.close()
-        return {"tarefas": []}, 200
+        return {'list': apresenta_tarefas([])}, 200
     else:
         logger.debug(f"{len(tarefas)} tasks found")
         session.close()
-        return {"tarefas": apresenta_tarefas(tarefas)}, 200
+        return {"list": apresenta_tarefas(tarefas)}, 200
 
-
-@app.get('/tarefa/id', tags=[tarefa_tag])
-def get_tarefas_id():
-    """
-    Get a list of tasks
-
-    Returns a list of all registered tasks
-    """
-    logger.debug("Fetching tasks")
-
-    session = Session()
-    tarefas = session.query(Tarefa).all()
-
-    if not tarefas:
-        logger.debug("No tasks found.")
-        session.close()
-        return {"tarefas": []}, 200
-    else:
-        logger.debug(f"{len(tarefas)} tasks found")
-        session.close()
-        return {"tarefas": apresenta_tarefas(tarefas)}, 200
-
-
-from sqlalchemy.orm.exc import NoResultFound
 
 @app.post('/tarefa', tags=[tarefa_tag],
           responses={"200": TarefaViewSchema, "409": ErrorSchema, "400": ErrorSchema})
@@ -82,21 +61,20 @@ def add_tarefa(form: TarefaSchema):
     """
     Adds a new task to the database
 
-    Returns a representation of the tasks and associated comments.
+    Returns a representation of the tasks.
     """
-
-    # Verifica se já existe uma tarefa com o mesmo nome
     existing_task = None
+
     try:
         session = Session()
-        existing_task = session.query(Tarefa).filter(Tarefa.nome == form.nome).one_or_none()
+        existing_task = session.query(Tarefa).filter(
+            Tarefa.nome == form.nome).one_or_none()
 
         if existing_task:
             error_msg = f"Task with the name '{form.nome}' already exists in the database."
             logger.warning(error_msg)
             return {"message": error_msg}, 409
-        
-        # Se não houver duplicidade, cria a nova tarefa
+
         tarefa = Tarefa(
             nome=form.nome,
             descricao=form.descricao,
@@ -118,26 +96,19 @@ def add_tarefa(form: TarefaSchema):
         return {"message": error_msg}, 400
 
 
-
 @app.delete('/tarefa', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
 def delete_tarefa(query: TarefaDeleteSchema):
     """Deletes a task by ID"""
     id = query.id
 
-    logger.warning(f"Error deleting task {id}")
-
     session = Session()
-    tarefa = session.query(Tarefa).filter(
-        Tarefa.id == id).first()  # Find the task
+    tarefa = session.query(Tarefa).filter(Tarefa.id == id).first()
 
     if not tarefa:
         error_msg = "Task not found :/"
         logger.warning(f"Error deleting task {id}, {error_msg}")
-        return {"message": error_msg}, 404
+        return {"error": error_msg}, 404
 
-    logger.info(f"Task found: {tarefa.nome}")
-
-    # Delete the task
     session.delete(tarefa)
     session.commit()
     session.close()
@@ -146,17 +117,14 @@ def delete_tarefa(query: TarefaDeleteSchema):
     return {"message": f"Task '{tarefa.nome}' deleted successfully"}, 200
 
 
-# Get Total Tasks by Status
 @app.get('/tarefas/status', tags=[tarefa_tag], responses={"200": TarefasPorStatusResponse, "500": ErrorSchema})
 def get_tarefas_por_status():
     """Returns the total count of tasks by status"""
     session = Session()
 
     try:
-        # Query all tasks
         resultados: list[Tarefa] = session.query(Tarefa).all()
 
-        # Ensuring that all statuses appear in the dictionary (even if there are 0 tasks)
         status_possiveis = ["Ready", "Doing", "Done"]
         resposta = {status: sum(
             1 for tarefa in resultados if tarefa.status == status) for status in status_possiveis}
@@ -170,45 +138,98 @@ def get_tarefas_por_status():
         return {"message": "Internal error processing the request"}, 500
 
     finally:
-        session.close()  # Close the session to avoid open connections
+        session.close()
 
 
 @app.put('/tarefa', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
 def update_tarefa_status(form: TarefaUpdateSchema):
     """Atualiza o status de uma tarefa pelo ID"""
 
-    # Inicia a sessão do banco de dados
     session = Session()
 
     id = form.id
 
     try:
-        # Busca a tarefa pelo ID
         tarefa = session.query(Tarefa).filter(Tarefa.id == id).first()
 
-        # Verifica se a tarefa foi encontrada
         if not tarefa:
             error_msg = "Tarefa não encontrada :/"
             logger.warning(
                 f"Erro ao atualizar status da tarefa {id}, {error_msg}")
             return {"message": error_msg}, 404
 
-        # Atualiza o status da tarefa
         tarefa.status = form.status
-        session.commit()  # Commit da alteração no banco de dados
+        session.commit()
 
         logger.debug(
             f"Status da tarefa {id} atualizado para {form.status}")
 
-        # Retorna a tarefa atualizada com a nova informação
         return apresenta_tarefa(tarefa), 200
 
     except Exception as e:
-        # Em caso de erro, faz rollback e loga a exceção
         session.rollback()
         logger.error(f"Erro ao atualizar tarefa {id}: {str(e)}")
         return {"message": "Erro interno no servidor"}, 500
 
     finally:
-        # Fecha a sessão para evitar conexões abertas
         session.close()
+
+
+@app.post('/usuario', tags=[usuario_tag], responses={"200": UsuarioSchema, "404": ErrorSchema})
+def post_usuario(form: UsuarioSchema):
+    """Cria um usuário no sistema"""
+
+    existing_user = None
+
+    try:
+        session = Session()
+        existing_user = session.query(Usuario).filter(Usuario.email == form.email).one_or_none()
+
+        if existing_user:
+            error_msg = f"User with this email '{form.email}' already exist in the database"
+            logger.warning(error_msg)
+            return {"message": error_msg}, 409
+
+        usuario = Usuario(
+            nome = form.nome,
+            email = form.email,
+            senha = form.senha,
+        )
+
+        logger.debug(f"Adding user with email: '{usuario.email}'")
+
+        session.add(usuario)
+        session.commit()
+
+        return apresenta_usuario(usuario), 200
+    
+    except Exception as e:
+        error_msg = "Could not save this user :/"
+        logger.warning(f"Error create user: {error_msg}, Exception: {str(e)}")
+        return {"message": error_msg}, 400
+
+@app.post('/usuario/login', tags=[usuario_tag])
+def login_usuario(form: LoginSchema):
+    session = Session()
+
+    try:
+        usuario = session.query(Usuario).filter(Usuario.email == form.email).one_or_none()
+
+        if usuario and usuario.senha == form.senha:
+            logger.debug("User Found")
+            return {
+                "user": {
+                    "id": usuario.id,
+                    "email": usuario.email,
+                    "nome": usuario.nome
+                }
+            }, 200
+        else:
+            logger.debug("User Not Found")
+            return {"user": None}, 404
+    except Exception as e:
+        logger.error(f"Erro no login: {str(e)}", exc_info=True)
+        return {"error": "Erro interno no servidor"}, 500
+    finally:
+        session.close()
+
