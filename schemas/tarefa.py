@@ -7,6 +7,7 @@ class TarefaSchema(BaseModel):
     descricao: str
     nome: str
     status: str
+    emailUsuario: str
 
 
 class TaredaAdicaoSchema(BaseModel):

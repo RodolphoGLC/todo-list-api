@@ -1,96 +1,50 @@
-[2025-03-25 07:53:30,827] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-26 20:46:31,729] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-26 20:48:37,070] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-26 20:48:40,379] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-26 20:48:43,825] ERROR get_tarefas_por_status() L170  Error fetching tasks by status: (sqlite3.OperationalError) no such column: tarefa.usuario_id
-[SQL: SELECT tarefa.pk_tarefa AS tarefa_pk_tarefa, tarefa.nome AS tarefa_nome, tarefa.descricao AS tarefa_descricao, tarefa.status AS tarefa_status, tarefa.data_criacao AS tarefa_data_criacao, tarefa.usuario_id AS tarefa_usuario_id 
-FROM tarefa]
-(Background on this error at: https://sqlalche.me/e/14/e3q8) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L170 
-[2025-03-26 20:48:43,825] ERROR log_exception() L1449 Exception on /tarefas [GET] - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py L1449
-Traceback (most recent call last):
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
-    self.dialect.do_execute(
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
-    cursor.execute(statement, parameters)
-sqlite3.OperationalError: no such column: tarefa.usuario_id
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\scaffold.py", line 109, in wrapper
-    resp = _do_wrapper(
-           ^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\do_wrapper.py", line 135, in _do_wrapper
-    response = func(**request_kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py", line 44, in get_tarefas
-    tarefas = session.query(Tarefa).all()
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2772, in all
-    return self._iter().all()
-           ^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2907, in _iter
-    result = self.session.execute(
-             ^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1712, in execute
-    result = conn._execute_20(statement, params or {}, execution_options)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
-    return meth(self, args_10style, kwargs_10style, execution_options)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 333, in _execute_on_connection
-    return connection._execute_clauseelement(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
-    ret = self._execute_context(
-          ^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
-    self._handle_dbapi_exception(
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
-    util.raise_(
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\util\compat.py", line 208, in raise_
-    raise exception
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
-    self.dialect.do_execute(
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
-    cursor.execute(statement, parameters)
-sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: tarefa.usuario_id
-[SQL: SELECT tarefa.pk_tarefa AS tarefa_pk_tarefa, tarefa.nome AS tarefa_nome, tarefa.descricao AS tarefa_descricao, tarefa.status AS tarefa_status, tarefa.data_criacao AS tarefa_data_criacao, tarefa.usuario_id AS tarefa_usuario_id 
-FROM tarefa]
-(Background on this error at: https://sqlalche.me/e/14/e3q8)
-[2025-03-26 20:48:46,549] ERROR get_tarefas_por_status() L170  Error fetching tasks by status: (sqlite3.OperationalError) no such column: tarefa.usuario_id
-[SQL: SELECT tarefa.pk_tarefa AS tarefa_pk_tarefa, tarefa.nome AS tarefa_nome, tarefa.descricao AS tarefa_descricao, tarefa.status AS tarefa_status, tarefa.data_criacao AS tarefa_data_criacao, tarefa.usuario_id AS tarefa_usuario_id 
-FROM tarefa]
-(Background on this error at: https://sqlalche.me/e/14/e3q8) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L170 
-[2025-03-26 20:49:18,367] ERROR get_tarefas_por_status() L170  Error fetching tasks by status: (sqlite3.OperationalError) no such column: tarefa.usuario_id
-[SQL: SELECT tarefa.pk_tarefa AS tarefa_pk_tarefa, tarefa.nome AS tarefa_nome, tarefa.descricao AS tarefa_descricao, tarefa.status AS tarefa_status, tarefa.data_criacao AS tarefa_data_criacao, tarefa.usuario_id AS tarefa_usuario_id 
-FROM tarefa]
-(Background on this error at: https://sqlalche.me/e/14/e3q8) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L170 
-[2025-03-26 20:49:28,613] ERROR get_tarefas_por_status() L170  Error fetching tasks by status: (sqlite3.OperationalError) no such column: tarefa.usuario_id
-[SQL: SELECT tarefa.pk_tarefa AS tarefa_pk_tarefa, tarefa.nome AS tarefa_nome, tarefa.descricao AS tarefa_descricao, tarefa.status AS tarefa_status, tarefa.data_criacao AS tarefa_data_criacao, tarefa.usuario_id AS tarefa_usuario_id 
-FROM tarefa]
-(Background on this error at: https://sqlalche.me/e/14/e3q8) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L170 
-[2025-03-26 20:49:34,610] ERROR get_tarefas_por_status() L170  Error fetching tasks by status: (sqlite3.OperationalError) no such column: tarefa.usuario_id
-[SQL: SELECT tarefa.pk_tarefa AS tarefa_pk_tarefa, tarefa.nome AS tarefa_nome, tarefa.descricao AS tarefa_descricao, tarefa.status AS tarefa_status, tarefa.data_criacao AS tarefa_data_criacao, tarefa.usuario_id AS tarefa_usuario_id 
-FROM tarefa]
-(Background on this error at: https://sqlalche.me/e/14/e3q8) - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L170 
-[2025-03-26 20:49:57,607] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-26 20:49:59,875] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-26 20:50:03,289] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-26 20:50:06,668] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-03-26 20:50:30,533] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:02:34,876] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:02:38,294] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:02:42,749] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:02:46,181] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:02:47,544] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:02:53,022] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:02:54,390] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:02:55,768] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:03:50,513] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:03:58,001] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:03,453] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:04,787] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:08,158] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:13,623] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:17,016] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:22,452] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:24,802] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:33,341] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:35,713] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:38,041] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:41,335] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:46,765] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:56,357] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:04:58,709] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:11,363] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:12,687] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:17,015] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:18,343] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:20,682] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:34,304] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:35,596] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:36,859] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:39,126] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:41,404] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:05:42,737] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:06:09,685] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:06:11,995] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:06:20,392] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:06:23,775] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:06:30,222] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:06:38,729] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:06:45,200] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:07:01,949] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:07:04,236] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:08:46,223] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:08:49,654] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:09:01,248] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:12:44,869] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-01 07:13:01,072] WARNING post_usuario() L216  Error create user: Could not save this user :/, Exception: Could not determine join condition between parent/child tables on relationship Tarefa.usuario - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression. - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L216 
+[2025-04-01 07:13:37,534] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 

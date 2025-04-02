@@ -1,14 +1,16 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from  model import Base
-from werkzeug.security import generate_password_hash, check_password_hash
 
 class Usuario(Base):
     __tablename__ = "usuarios"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column("pk_usuario", Integer, primary_key=True)
     nome = Column(String(100))
     email = Column(String(100), unique=True, index=True)
     senha = Column(String(255))
+
+    # Remover depois
+    tarefas = Column(Integer, ForeignKey("tarefa.pk_tarefa"))
 
     def __init__(self, nome:str, email:str, senha:str ):
                  

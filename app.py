@@ -64,11 +64,12 @@ def add_tarefa(form: TarefaSchema):
     Returns a representation of the tasks.
     """
     existing_task = None
+    existing_user = None
 
     try:
         session = Session()
-        existing_task = session.query(Tarefa).filter(
-            Tarefa.nome == form.nome).one_or_none()
+        existing_task = session.query(Tarefa).filter(Tarefa.nome == form.nome).one_or_none()
+        existing_user = session.query(Usuario).filter(Usuario.email == form.emailUsuario).one_or_none()
 
         if existing_task:
             error_msg = f"Task with the name '{form.nome}' already exists in the database."
@@ -79,8 +80,14 @@ def add_tarefa(form: TarefaSchema):
             nome=form.nome,
             descricao=form.descricao,
             status=form.status,
-            data_criacao=datetime.now()
         )
+
+        if existing_user:
+            tarefa.usuario = existing_user.id
+        else:
+            error_msg = "User Not Found."
+            logger.warning(error_msg)
+            return {"message": error_msg}, 404
 
         logger.debug(f"Adding task with name: '{tarefa.nome}'")
 
