@@ -1,90 +1,51 @@
-[2025-04-01 07:21:31,760] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:21:34,082] ERROR log_exception() L1449 Exception on /tarefas [GET] - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py L1449
-Traceback (most recent call last):
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2749, in _determine_joins
-    self.primaryjoin = join_condition(
-                       ^^^^^^^^^^^^^^^
-  File "<string>", line 2, in join_condition
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\sql\selectable.py", line 1229, in _join_condition
-    raise exc.NoForeignKeysError(
-sqlalchemy.exc.NoForeignKeysError: Can't find any foreign key relationships between 'usuarios' and 'tarefa'.
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\scaffold.py", line 109, in wrapper
-    resp = _do_wrapper(
-           ^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\flask_openapi3\do_wrapper.py", line 135, in _do_wrapper
-    response = func(**request_kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py", line 46, in get_tarefas
-    tarefas = session.query(Tarefa).all()
-              ^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2159, in query
-    return self._query_cls(entities, self, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 180, in __init__
-    self._set_entities(entities)
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 187, in _set_entities
-    self._raw_columns = [
-                        ^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 188, in <listcomp>
-    coercions.expect(
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 181, in expect
-    insp._post_inspect
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1184, in __get__
-    obj.__dict__[self.__name__] = result = self.fget(obj)
-                                           ^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2182, in _post_inspect
-    self._check_configure()
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 1924, in _check_configure
-    _configure_registries({self.registry}, cascade=True)
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 3483, in _configure_registries
-    _do_configure_registries(registries, cascade)
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 3522, in _do_configure_registries
-    mapper._post_configure_properties()
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 1941, in _post_configure_properties
-    prop.init()
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 231, in init
-    self.do_init()
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2147, in do_init
-    self._setup_join_conditions()
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2243, in _setup_join_conditions
-    self._join_condition = jc = JoinCondition(
-                                ^^^^^^^^^^^^^^
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2638, in __init__
-    self._determine_joins()
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2771, in _determine_joins
-    util.raise_(
-  File "E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\sqlalchemy\util\compat.py", line 208, in raise_
-    raise exception
-sqlalchemy.exc.NoForeignKeysError: Could not determine join condition between parent/child tables on relationship Usuario.tarefas - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression.
-[2025-04-01 07:21:34,084] ERROR get_tarefas_por_status() L145  Error fetching tasks by status: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class Usuario->usuarios'. Original exception was: Could not determine join condition between parent/child tables on relationship Usuario.tarefas - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression. - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L145 
-[2025-04-01 07:21:42,658] WARNING post_usuario() L216  Error create user: Could not save this user :/, Exception: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class Usuario->usuarios'. Original exception was: Could not determine join condition between parent/child tables on relationship Usuario.tarefas - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression. - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\app.py L216 
-[2025-04-01 07:23:28,585] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:23:36,097] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:23:56,964] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:23:58,329] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:24:11,013] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:24:25,705] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:24:34,256] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:24:37,670] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:24:42,105] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:25:05,040] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
-[2025-04-01 07:25:09,476] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:16:40,871] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:16:44,235] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:17:55,004] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:18:12,484] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:18:32,347] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:18:34,691] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:18:39,079] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:18:48,225] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 15:19:35,213] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:41:58,164] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:42:34,621] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:42:39,004] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:42:45,450] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:42:48,733] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:42:51,124] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:42:53,473] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:42:56,834] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:42:59,155] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:43:01,496] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:43:06,902] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:44:20,991] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:44:25,315] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:44:26,650] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:02,237] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:04,505] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:05,817] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:09,185] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:11,453] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:13,719] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:17,003] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:20,308] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:24,607] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:25,860] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:33,189] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:36,548] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:39,826] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:42,100] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:45,488] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:48,864] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:51,130] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:52,462] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:45:56,818] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:46:00,103] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:46:06,558] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:46:10,953] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:46:14,317] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:46:26,663] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:47:10,502] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:47:15,905] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:47:17,225] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 
+[2025-04-03 19:47:25,791] INFO _log() L225   * Restarting with stat - call_trace=E:\Programacao\PUC\Pós-Graduação\MVPFullStack\todo-list-api\venv\Lib\site-packages\werkzeug\_internal.py L225 

@@ -80,7 +80,7 @@ def apresenta_tarefa(tarefa: Tarefa):
         "id": tarefa.id,
         "nome": tarefa.nome,
         "descricao": tarefa.descricao,
-        "status": tarefa.status,
+        "status": tarefa.status
     }
 
 
@@ -95,7 +95,8 @@ def apresenta_tarefas(tarefas: List[Tarefa]):
             "nome": tarefa.nome,
             "descricao": tarefa.descricao,
             "status": tarefa.status,
-            "data_criacao": tarefa.data_criacao
+            "data_criacao": tarefa.data_criacao,
+            "usuario": tarefa.usuario
         })
 
     return {"tarefas": result}

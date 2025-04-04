@@ -34,7 +34,7 @@ def home():
 
 
 @app.get('/tarefas', tags=[tarefa_tag])
-def get_tarefas():
+def get_tarefas(query: TarefaDeleteSchema):
     """
     Get a list of tasks
 
@@ -43,7 +43,7 @@ def get_tarefas():
     # logger.debug("Fetching tasks")
 
     session = Session()
-    tarefas = session.query(Tarefa).all()
+    tarefas = session.query(Tarefa).filter(Tarefa.usuario == query.id).all()
 
     if not tarefas:
         logger.debug("No tasks found.")
@@ -125,16 +125,18 @@ def delete_tarefa(query: TarefaDeleteSchema):
 
 
 @app.get('/tarefas/status', tags=[tarefa_tag], responses={"200": TarefasPorStatusResponse, "500": ErrorSchema})
-def get_tarefas_por_status():
+def get_tarefas_por_status(query: TarefaDeleteSchema):  # Adicionando id como parâmetro da função
     """Returns the total count of tasks by status"""
     session = Session()
 
     try:
-        resultados: list[Tarefa] = session.query(Tarefa).all()
+        # Buscar todas as tarefas com o ID fornecido
+        resultados = session.query(Tarefa).filter(Tarefa.usuario == query.id).all()
+
+        logger.debug(resultados)
 
         status_possiveis = ["Ready", "Doing", "Done"]
-        resposta = {status: sum(
-            1 for tarefa in resultados if tarefa.status == status) for status in status_possiveis}
+        resposta = {status: sum(1 for tarefa in resultados if tarefa.status == status) for status in status_possiveis}
 
         logger.debug(f"Task count by status: {resposta}")
 
@@ -146,6 +148,8 @@ def get_tarefas_por_status():
 
     finally:
         session.close()
+
+
 
 
 @app.put('/tarefa', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
