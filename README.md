@@ -1,6 +1,6 @@
 # 📋 Task List API
 
-Uma API RESTful para gerenciamento de tarefas dos usuários, construída com Flask, Flask-OpenAPI3, SQLAlchemy e Pydantic.
+Uma API RESTful para gerenciamento de tarefas dos usuários, construída com Flask, Flask-OpenAPI3, SQLAlchemy e Pydantic. Tem como objetivo ajudar no dia a dia do usuário, permitindo ele criar e gerenciar suas tarefas de uma maneira simples e intuitiva.
 
 ## 🚀 Funcionalidades
 
@@ -30,7 +30,6 @@ Uma API RESTful para gerenciamento de tarefas dos usuários, construída com Fla
 ```
 
 2. Baixar o venv no projeto e iniciar ele (siga o passo a passo a baixo)
-
 ```
     python -m venv venv
 ```
@@ -39,14 +38,12 @@ Uma API RESTful para gerenciamento de tarefas dos usuários, construída com Fla
     .\venv\Scripts\activate
 ```
 
-3. Instale as bibliotecas
-
+3. Instale as bibliotecas (se já intalou, pode pular esse passo)
 ```
     pip install -r requirements.txt
 ```
 
 4. Por fim rode a aplicação usando o comando abaixo
-
 ```
     flask run --host 0.0.0.0 --port 5000
 ```
