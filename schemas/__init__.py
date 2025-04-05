@@ -1,6 +1,6 @@
-from schemas.tarefa import TarefaSchema, TarefaBuscaSchema, TarefaViewSchema, \
-                            ListagemTarefasSchema, TarefaDelSchema, TarefaUpdateSchema, \
-                            TarefasPorStatusResponse, TarefaDeleteSchema, \
-                            apresenta_tarefas, apresenta_tarefa
+from schemas.task import TaskSchema, TaskViewSchema, \
+                         TaskListSchema, TaskUpdateSchema, \
+                         TasksByStatusResponse, TaskIdSchema, \
+                         present_tasks, present_task
 from schemas.error import ErrorSchema
-from schemas.usuario import LoginSchema, UsuarioSchema, apresenta_usuario
+from schemas.user import LoginSchema, UserSchema, present_user

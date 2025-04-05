@@ -1,14 +1,8 @@
-from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm import Session
-from sqlalchemy.sql import func
 from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
-from urllib.parse import unquote
-from datetime import datetime
 
-from sqlalchemy.exc import IntegrityError
-
-from model import Session, Tarefa, Usuario
+from model import Session, Task, User
 from logger import logger
 from schemas import *
 from flask_cors import CORS
@@ -19,128 +13,128 @@ CORS(app)
 
 home_tag = Tag(name="Documentation",
                description="Documentation selection: Swagger, Redoc, or RapiDoc")
-tarefa_tag = Tag(
-    name="Tarefa", description="Adding, viewing, and removing tasks from the database")
-usuario_tag = Tag(
-    name="Usuário", description="Endpoints de usuário e autenticação")
+
+task_tag = Tag(
+    name="Task", description="Add, view, and remove tasks from the database")
+
+user_tag = Tag(
+    name="User", description="User and authentication endpoints")
 
 
 @app.get('/', tags=[home_tag])
 def home():
-    """Redirects to /openapi, a page that allows the choice of documentation style."""
+    """Redirects to /openapi, a page that allows choosing the documentation style."""
     return redirect('/openapi')
 
-# Get Tarefas
 
-
-@app.get('/tarefas', tags=[tarefa_tag])
-def get_tarefas(query: TarefaDeleteSchema):
+@app.get('/tasks', tags=[task_tag], responses={"200": TaskListSchema, "409": ErrorSchema, "400": ErrorSchema})
+def get_tasks(query: TaskIdSchema):
     """
     Get a list of tasks
 
     Returns a list of all registered tasks
     """
-    # logger.debug("Fetching tasks")
-
     session = Session()
-    tarefas = session.query(Tarefa).filter(Tarefa.usuario == query.id).all()
+    tasks = session.query(Task).filter(Task.user == query.id).all()
 
-    if not tarefas:
+    if not tasks:
         logger.debug("No tasks found.")
         session.close()
-        return {'list': apresenta_tarefas([])}, 200
+        return present_tasks([]), 200
     else:
-        logger.debug(f"{len(tarefas)} tasks found")
+        logger.debug(f"{len(tasks)} tasks found")
         session.close()
-        return {"list": apresenta_tarefas(tarefas)}, 200
+        return present_tasks(tasks), 200
 
 
-@app.post('/tarefa', tags=[tarefa_tag],
-          responses={"200": TarefaViewSchema, "409": ErrorSchema, "400": ErrorSchema})
-def add_tarefa(form: TarefaSchema):
+@app.post('/task', tags=[task_tag],
+          responses={"200": TaskViewSchema, "409": ErrorSchema, "400": ErrorSchema})
+def add_task(form: TaskSchema):
     """
-    Adds a new task to the database
+    Add a new task to the database
 
-    Returns a representation of the tasks.
+    Returns a representation of the created task.
     """
     existing_task = None
     existing_user = None
 
     try:
         session = Session()
-        existing_task = session.query(Tarefa).filter(Tarefa.nome == form.nome).one_or_none()
-        existing_user = session.query(Usuario).filter(Usuario.email == form.emailUsuario).one_or_none()
+        existing_task = session.query(Task).filter(
+            Task.name == form.name).one_or_none()
+        existing_user = session.query(User).filter(
+            User.email == form.userEmail).one_or_none()
 
         if existing_task:
-            error_msg = f"Task with the name '{form.nome}' already exists in the database."
+            error_msg = f"Task with the name '{form.name}' already exists in the database."
             logger.warning(error_msg)
             return {"message": error_msg}, 409
 
-        tarefa = Tarefa(
-            nome=form.nome,
-            descricao=form.descricao,
+        task = Task(
+            name=form.name,
+            description=form.description,
             status=form.status,
         )
 
         if existing_user:
-            tarefa.usuario = existing_user.id
+            task.user = existing_user.id
         else:
-            error_msg = "User Not Found."
+            error_msg = "User not found."
             logger.warning(error_msg)
             return {"message": error_msg}, 404
 
-        logger.debug(f"Adding task with name: '{tarefa.nome}'")
+        logger.debug(f"Adding task with name: '{task.name}'")
 
-        session.add(tarefa)
+        session.add(task)
         session.commit()
 
-        logger.debug(f"Added task with name: '{tarefa.nome}'")
-        return apresenta_tarefa(tarefa), 200
+        logger.debug(f"Added task with name: '{task.name}'")
+        return present_task(task), 200
 
     except Exception as e:
-        error_msg = "Could not save new item :/"
+        error_msg = "Could not save the new task :/"
         logger.warning(f"Error adding task: {error_msg}, Exception: {str(e)}")
         return {"message": error_msg}, 400
 
 
-@app.delete('/tarefa', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
-def delete_tarefa(query: TarefaDeleteSchema):
+@app.delete('/task', tags=[task_tag], responses={"200": TaskViewSchema, "404": ErrorSchema})
+def delete_task(query: TaskIdSchema):
     """Deletes a task by ID"""
     id = query.id
 
     session = Session()
-    tarefa = session.query(Tarefa).filter(Tarefa.id == id).first()
+    task = session.query(Task).filter(Task.id == id).first()
 
-    if not tarefa:
+    if not task:
         error_msg = "Task not found :/"
         logger.warning(f"Error deleting task {id}, {error_msg}")
         return {"error": error_msg}, 404
 
-    session.delete(tarefa)
+    session.delete(task)
     session.commit()
     session.close()
 
     logger.debug(f"Task {id} deleted successfully")
-    return {"message": f"Task '{tarefa.nome}' deleted successfully"}, 200
+    return {"message": f"Task '{task.name}' deleted successfully"}, 200
 
 
-@app.get('/tarefas/status', tags=[tarefa_tag], responses={"200": TarefasPorStatusResponse, "500": ErrorSchema})
-def get_tarefas_por_status(query: TarefaDeleteSchema):  # Adicionando id como parâmetro da função
+@app.get('/tasks/status', tags=[task_tag], responses={"200": TasksByStatusResponse, "500": ErrorSchema})
+def get_tasks_by_status(query: TaskIdSchema):
     """Returns the total count of tasks by status"""
     session = Session()
 
     try:
-        # Buscar todas as tarefas com o ID fornecido
-        resultados = session.query(Tarefa).filter(Tarefa.usuario == query.id).all()
+        results = session.query(Task).filter(Task.user == query.id).all()
 
-        logger.debug(resultados)
+        logger.debug(results)
 
-        status_possiveis = ["Ready", "Doing", "Done"]
-        resposta = {status: sum(1 for tarefa in resultados if tarefa.status == status) for status in status_possiveis}
+        possible_status = ["Ready", "Doing", "Done"]
+        response = {status: sum(
+            1 for task in results if task.status == status) for status in possible_status}
 
-        logger.debug(f"Task count by status: {resposta}")
+        logger.debug(f"Task count by status: {response}")
 
-        return resposta, 200
+        return response, 200
 
     except Exception as e:
         logger.error(f"Error fetching tasks by status: {str(e)}")
@@ -150,97 +144,93 @@ def get_tarefas_por_status(query: TarefaDeleteSchema):  # Adicionando id como pa
         session.close()
 
 
-
-
-@app.put('/tarefa', tags=[tarefa_tag], responses={"200": TarefaViewSchema, "404": ErrorSchema})
-def update_tarefa_status(form: TarefaUpdateSchema):
-    """Atualiza o status de uma tarefa pelo ID"""
-
+@app.put('/task', tags=[task_tag], responses={"200": TaskViewSchema, "404": ErrorSchema})
+def update_task_status(form: TaskUpdateSchema):
+    """Updates the status of a task by ID"""
     session = Session()
-
     id = form.id
 
     try:
-        tarefa = session.query(Tarefa).filter(Tarefa.id == id).first()
+        task = session.query(Task).filter(Task.id == id).first()
 
-        if not tarefa:
-            error_msg = "Tarefa não encontrada :/"
-            logger.warning(
-                f"Erro ao atualizar status da tarefa {id}, {error_msg}")
+        if not task:
+            error_msg = "Task not found :/"
+            logger.warning(f"Error updating task status {id}, {error_msg}")
             return {"message": error_msg}, 404
 
-        tarefa.status = form.status
+        task.status = form.status
         session.commit()
 
-        logger.debug(
-            f"Status da tarefa {id} atualizado para {form.status}")
-
-        return apresenta_tarefa(tarefa), 200
+        logger.debug(f"Task {id} status updated to {form.status}")
+        return present_task(task), 200
 
     except Exception as e:
         session.rollback()
-        logger.error(f"Erro ao atualizar tarefa {id}: {str(e)}")
-        return {"message": "Erro interno no servidor"}, 500
+        logger.error(f"Error updating task {id}: {str(e)}")
+        return {"message": "Internal server error"}, 500
 
     finally:
         session.close()
 
 
-@app.post('/usuario', tags=[usuario_tag], responses={"200": UsuarioSchema, "404": ErrorSchema})
-def post_usuario(form: UsuarioSchema):
-    """Cria um usuário no sistema"""
-
+@app.post('/user', tags=[user_tag], responses={"200": UserSchema, "404": ErrorSchema})
+def post_user(form: UserSchema):
+    """Creates a user in the system"""
     existing_user = None
 
     try:
         session = Session()
-        existing_user = session.query(Usuario).filter(Usuario.email == form.email).one_or_none()
+        existing_user = session.query(User).filter(
+            User.email == form.email).one_or_none()
 
         if existing_user:
-            error_msg = f"User with this email '{form.email}' already exist in the database"
+            error_msg = f"User with email '{form.email}' already exists in the database"
             logger.warning(error_msg)
             return {"message": error_msg}, 409
 
-        usuario = Usuario(
-            nome = form.nome,
-            email = form.email,
-            senha = form.senha,
+        user = User(
+            name=form.name,
+            email=form.email,
+            password=form.password,
         )
 
-        logger.debug(f"Adding user with email: '{usuario.email}'")
+        logger.debug(f"Adding user with email: '{user.email}'")
 
-        session.add(usuario)
+        session.add(user)
         session.commit()
 
-        return apresenta_usuario(usuario), 200
-    
+        return present_user(user), 200
+
     except Exception as e:
         error_msg = "Could not save this user :/"
-        logger.warning(f"Error create user: {error_msg}, Exception: {str(e)}")
+        logger.warning(
+            f"Error creating user: {error_msg}, Exception: {str(e)}")
         return {"message": error_msg}, 400
 
-@app.post('/usuario/login', tags=[usuario_tag])
-def login_usuario(form: LoginSchema):
+
+@app.post('/user/login', tags=[user_tag])
+def login_user(form: LoginSchema):
+    """Authenticates a user"""
     session = Session()
 
     try:
-        usuario = session.query(Usuario).filter(Usuario.email == form.email).one_or_none()
+        user = session.query(User).filter(
+            User.email == form.email).one_or_none()
 
-        if usuario and usuario.senha == form.senha:
-            logger.debug("User Found")
+        if user and user.password == form.password:
+            logger.debug("User found")
             return {
                 "user": {
-                    "id": usuario.id,
-                    "email": usuario.email,
-                    "nome": usuario.nome
+                    "id": user.id,
+                    "email": user.email,
+                    "name": user.name
                 }
             }, 200
         else:
-            logger.debug("User Not Found")
+            logger.debug("User not found")
             return {"user": None}, 404
     except Exception as e:
-        logger.error(f"Erro no login: {str(e)}", exc_info=True)
-        return {"error": "Erro interno no servidor"}, 500
+        logger.error(f"Login error: {str(e)}", exc_info=True)
+        return {"error": "Internal server error"}, 500
     finally:
         session.close()
-
