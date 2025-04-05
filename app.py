@@ -15,10 +15,10 @@ home_tag = Tag(name="Documentation",
                description="Documentation selection: Swagger, Redoc, or RapiDoc")
 
 task_tag = Tag(
-    name="Task", description="Add, view, and remove tasks from the database")
+    name="Task", description="Operations related to tasks: add, view, update, and remove.")
 
 user_tag = Tag(
-    name="User", description="User and authentication endpoints")
+    name="User", description="User operations: create account and authenticate.")
 
 
 @app.get('/', tags=[home_tag])
@@ -30,9 +30,15 @@ def home():
 @app.get('/tasks', tags=[task_tag], responses={"200": TaskListSchema, "409": ErrorSchema, "400": ErrorSchema})
 def get_tasks(query: TaskIdSchema):
     """
-    Get a list of tasks
+    Get all tasks of a user
 
-    Returns a list of all registered tasks
+    Returns a list of all tasks associated with the given user ID.
+    - **Query parameter**:
+        - `id`: User ID
+    - **Responses**:
+        - `200`: List of tasks
+        - `409`: Conflict retrieving tasks
+        - `400`: Bad request
     """
     session = Session()
     tasks = session.query(Task).filter(Task.user == query.id).all()
@@ -51,9 +57,19 @@ def get_tasks(query: TaskIdSchema):
           responses={"200": TaskViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def add_task(form: TaskSchema):
     """
-    Add a new task to the database
+    Add a new task
 
-    Returns a representation of the created task.
+    Creates a new task and links it to a user by email.
+    - **Request body**:
+        - `name`: Name of the task
+        - `description`: Task details
+        - `status`: Task status (Ready, Doing, Done)
+        - `userEmail`: Email of the user
+    - **Responses**:
+        - `200`: Task created successfully
+        - `409`: Task already exists
+        - `404`: User not found
+        - `400`: Failed to save task
     """
     existing_task = None
     existing_user = None
@@ -99,7 +115,16 @@ def add_task(form: TaskSchema):
 
 @app.delete('/task', tags=[task_tag], responses={"200": TaskViewSchema, "404": ErrorSchema})
 def delete_task(query: TaskIdSchema):
-    """Deletes a task by ID"""
+    """
+    Delete a task by ID
+
+    Removes a task based on its ID.
+    - **Query parameter**:
+        - `id`: Task ID
+    - **Responses**:
+        - `200`: Task deleted successfully
+        - `404`: Task not found
+    """
     id = query.id
 
     session = Session()
@@ -120,7 +145,16 @@ def delete_task(query: TaskIdSchema):
 
 @app.get('/tasks/status', tags=[task_tag], responses={"200": TasksByStatusResponse, "500": ErrorSchema})
 def get_tasks_by_status(query: TaskIdSchema):
-    """Returns the total count of tasks by status"""
+    """
+    Get task counts by status
+
+    Returns the number of tasks grouped by status for a specific user.
+    - **Query parameter**:
+        - `id`: User ID
+    - **Responses**:
+        - `200`: Task counts grouped by status
+        - `500`: Internal server error
+    """
     session = Session()
 
     try:
@@ -146,7 +180,17 @@ def get_tasks_by_status(query: TaskIdSchema):
 
 @app.put('/task', tags=[task_tag], responses={"200": TaskViewSchema, "404": ErrorSchema})
 def update_task_status(form: TaskUpdateSchema):
-    """Updates the status of a task by ID"""
+    """
+    Update a task's status
+
+    Updates the status field of a task by its ID.
+    - **Request body**:
+        - `id`: Task ID
+        - `status`: New status value
+    - **Responses**:
+        - `200`: Task updated successfully
+        - `404`: Task not found
+    """
     session = Session()
     id = form.id
 
@@ -175,7 +219,19 @@ def update_task_status(form: TaskUpdateSchema):
 
 @app.post('/user', tags=[user_tag], responses={"200": UserSchema, "404": ErrorSchema})
 def post_user(form: UserSchema):
-    """Creates a user in the system"""
+    """
+    Create a new user
+
+    Adds a user to the system.
+    - **Request body**:
+        - `name`: Name of the user
+        - `email`: Email address
+        - `password`: User password
+    - **Responses**:
+        - `200`: User created successfully
+        - `409`: User already exists
+        - `400`: Failed to create user
+    """
     existing_user = None
 
     try:
@@ -210,7 +266,18 @@ def post_user(form: UserSchema):
 
 @app.post('/user/login', tags=[user_tag])
 def login_user(form: LoginSchema):
-    """Authenticates a user"""
+    """
+    User login
+
+    Authenticates a user with email and password.
+    - **Request body**:
+        - `email`: User's email
+        - `password`: User's password
+    - **Responses**:
+        - `200`: User authenticated successfully
+        - `404`: Invalid credentials
+        - `500`: Server error
+    """
     session = Session()
 
     try:
@@ -228,7 +295,7 @@ def login_user(form: LoginSchema):
             }, 200
         else:
             logger.debug("User not found")
-            return {"user": None}, 404
+            return {"message": "User not found"}, 404
     except Exception as e:
         logger.error(f"Login error: {str(e)}", exc_info=True)
         return {"error": "Internal server error"}, 500
