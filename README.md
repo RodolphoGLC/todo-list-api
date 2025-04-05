@@ -50,3 +50,9 @@ Uma API RESTful para gerenciamento de tarefas dos usuários, construída com Fla
 ```
     flask run --host 0.0.0.0 --port 5000
 ```
+
+## 👨‍💻 Autor
+
+Desenvolvido por Rodolpho Coutinho
+🔗 [https://www.linkedin.com/in/rodolpho-coutinho-a7b1a4229/]
+📫 rodolpho.coutinho@outlook.com.br
