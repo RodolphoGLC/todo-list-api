@@ -43,9 +43,15 @@ Uma API RESTful para gerenciamento de tarefas dos usuários, construída com Fla
     pip install -r requirements.txt
 ```
 
-4. Por fim rode a aplicação usando o comando abaixo
+4. Agora rode a aplicação usando o comando abaixo
 ```
     flask run --host 0.0.0.0 --port 5000
+```
+
+5. Por fim caso queira abrir a API local abra o link abaixo no navegador:
+
+```
+    http://localhost:5000/openapi/swagger#/
 ```
 
 ## 👨‍💻 Autor
